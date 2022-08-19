@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Game</title>
+  <script>
+      // const MONITIZATION = 'admob'
+      // const MONITIZATION = 'crazygames'
+      const MONITIZATION = 'cpmstar'
+      const MOBILE = false
+      const VERSION = '0.1.7'
+      const GAMEANALYTICS = false
+      const PLATFORM = 'kongregate'
+      console.log("Platform: " + PLATFORM)
+      const CPMSTAR = {
+        'itch': { // WORKING, UPLOADED
+          region: 'bwbmf6wu6svrrcep9p0W/D/8mblvrdUe71qcjx6/on.js',
+          contentId: '7535S543D85B0'
+        },
+        'kongregate': {
+          region: 'bwbmf6wu6svrrcep9p0W/D/8mblvrdUe71qcjx6/on.js',
+          contentId: '7541S3373BC4E'
+        },
+        'newgrounds': {
+          region: 'bwbmf6wu6svrrcep9p0W/D/8mblvrdUe71qcjx6/on.js',
+          contentId: '7542S02BA6348'
+        },
+        'other': {
+          region: 'bwbmf6wu6svrrcep9p0W/D/8mblvrdUe71qcjx6/on.js',
+          contentId: ''
+        },
+      }
+    </script>
+  <script>
+        let crazysdk = null;
+        if (MONITIZATION === 'crazygames') {
+          let 
+          crazysdk = window.CrazyGames.CrazySDK.getInstance(); //Getting the SDK
+          crazysdk.init(); //Initializing the SDK, call as early as possible
+          crazysdk.addEventListener('adFinished', function() {
+            scene.manager.completeAd()
+          });
+        }
+      </script>
+  <script type="text/javascript" src="./js/data/challenges.js"></script>
+  <script type="text/javascript" src="./js/libs/cpmstar.js"></script>
+  <script type="text/javascript" src="./js/libs/jquery.js"></script>
+  <script type="text/javascript" src="./js/libs/phaser3.js"></script>
+  <script type="text/javascript" src="./js/libs/lodash.js"></script>
+  <script type="text/javascript" src="./js/libs/decimal.js"></script>
+  <script type="text/javascript" src="./js/libs/GameAnalytics.js"></script>
+  <script type="text/javascript" src="./js/tutorial/tutorialBlock.js"></script>
+  <script type="text/javascript" src="./js/tutorial/tutorialSkillButton.js"></script>
+  <script type="text/javascript" src="./js/tutorial/tutorialUpgradeButton.js"></script>
+  <script type="text/javascript" src="./js/tutorial/tutorialWindow.js"></script>
+  <script type="text/javascript" src="./js/tutorial/tutorialLpButton.js"></script>
+  <script type="text/javascript" src="./js/tutorial/uiBuilder.js"></script>
+  <script type="text/javascript" src="./js/splash/splashBlock.js"></script>
+  <script type="text/javascript" src="./js/classes/analytics.js"></script>
+  <script type="text/javascript" src="./js/classes/manager.js"></script>
+  <script type="text/javascript" src="./js/classes/soundControllerObj.js"></script>
+  <script type="text/javascript" src="./js/classes/musicController.js"></script>
+  <script type="text/javascript" src="./js/classes/challengeNumber.js"></script>
+  <script type="text/javascript" src="./js/classes/block.js"></script>
+  <script type="text/javascript" src="./js/classes/expBar.js"></script>
+  <script type="text/javascript" src="./js/classes/burner.js"></script>
+  <script type="text/javascript" src="./js/classes/rater.js"></script>
+  <script type="text/javascript" src="./js/classes/mobile.js"></script>
+  <script type="text/javascript" src="./js/classes/burnerManager.js"></script>
+  <script type="text/javascript" src="./js/classes/achievement.js"></script>
+  <script type="text/javascript" src="./js/classes/achievementManager.js"></script>
+  <script type="text/javascript" src="./js/classes/volumeSlider.js"></script>
+  <script type="text/javascript" src="./js/classes/presButton.js"></script>
+  <script type="text/javascript" src="./js/classes/skillButton.js"></script>
+  <script type="text/javascript" src="./js/classes/simpleButton.js"></script>
+  <script type="text/javascript" src="./js/classes/promptOK.js"></script>
+  <script type="text/javascript" src="./js/classes/promptYN.js"></script>
+  <script type="text/javascript" src="./js/classes/promptStats.js"></script>
+  <script type="text/javascript" src="./js/classes/lpButton.js"></script>
+  <script type="text/javascript" src="./js/classes/tierButton.js"></script>
+  <script type="text/javascript" src="./js/classes/upgradeButton.js"></script>
+  <script type="text/javascript" src="./js/classes/zoneNumber.js"></script>
+  <script type="text/javascript" src="./js/classes/tooltip.js"></script>
+  <script type="text/javascript" src="./js/scenes/uiBuilder.js"></script>
+  <script type="text/javascript" src="./js/scenes/tutorialScene.js"></script>
+  <script type="text/javascript" src="./js/scenes/gameScene.js"></script>
+  <script type="text/javascript" src="./js/scenes/menuScene.js"></script>
+  <script type="text/javascript" src="./js/globals.js"></script>
+  <script type="text/javascript" src="./js/common.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+  <script type="text/javascript" src="./js/visibilityAPI.js"></script>
+</head>
+<body style="margin: 0px; background-color: black; overflow: hidden; width: 1128px;height:615px">
+<div id="wrapperContainer" style="width:100%; height:100%">
+  <div id="wrapper" style="width: 100%; height: 100%"></div>
+  <div id="wall" style="position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  top: 0px; display: none">
+    <div id="adTarget" style="width: 1000px; height: 500px; position: fixed; top: 40px; left: 60px; border: 2px solid #cce6fb">AHH!</div>
+    <!-- <div id="closeAd" style="position: fixed; top: 50px; right: 195px; border: 2px solid #cce6fb; color: #cce6fb; margin: 8px; cursor: pointer; padding: 4px; font-family: cursive;" onClick="$('#wall').hide(); scene.manager.hide()">X</div> -->
+  </div>
+</div>
+<div id="testDiv" style="position: fixed; width: 1000px; height: 500px; left: 2000px; top: 42px;"></div>
+<script>
+      if (MONITIZATION === 'cpmstar') {
+        /* Interstitial auto-preloading */
+        var rAd;
+        cpmstarAPI(function(api) {
+          api.game.setContentID(CPMSTAR[PLATFORM].contentId);
+          rAd = new api.game.RewardedVideoView("rewardedvideo");
+          
+          api.game.setTarget(document.getElementById("testDiv"));
+          rAd.load();
+          console.log(rAd)
+          if(rAd) {
+            rAd.addEventListener("ad_opened", function(e) {
+              if (scene.manager) {
+                scene.manager.playingAd = true
+                $('#wall').show();
+                $('#testDiv').css('left', '62px');
+              }
+            });
+            rAd.addEventListener("ad_finished", function(e) {
+              console.log('test 1')
+            });
+            rAd.addEventListener("ad_complete", function(e) {
+              console.log('test 2')
+            });
+            rAd.addEventListener("ad_closed", function(e) {
+              console.log('ad closed!')
+              setTimeout(function() {
+                if (scene.manager && $('#wall').is(":visible")) {
+                  $('#wall').hide();
+                $('#testDiv').css('left', '2000px');
+                  scene.manager.completeAd()
+                }
+              },700);
+              rAd.load();
+            });
+          }
+        });
+        function displayRewardedVideo() {
+          if(rAd && rAd.isLoaded())  {
+            rAd.show();//Show loaded ad
+          }
+          else if(rAd)  {
+            rAd.load(); //If no ad available, load another
+          } else {
+            let prompt = new promptOK();
+            prompt.setTitle("OOPS!");
+            prompt.setMessage(
+              "It looks like you may have\r\nan ad-blocker enabled so\r\nwe can't show you an ad.\r\nIf you want the bonus, disable\r\nadblocker and reload the game!"
+            );
+          }
+        }
+      } else if (MONITIZATION === 'admob') {
+        document.addEventListener('deviceready', initApp, false);
+      }
+      function initApp() {
+        console.log('initalizing!')
+        AdMob.getAdSettings(function(info){
+          console.log('adId: ' + info.adId + '\n' + 'adTrackingEnabled: ' + info.adTrackingEnabled);
+        }, function(){
+          console.log('failed to get user ad settings');
+        });
+        prepareAdmobAd();
+      }
+
+      $(document).on('onAdFailLoad', function(e){
+          // Mobile ad stuff!
+          // when jquery used, it will hijack the event, so we have to get data from original event
+          if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
+          var data = e.detail || e.data || e;
+          if (data.error === 3) {
+            console.log('no ad found, trying again in 5 seconds..')
+            setTimeout(prepareAdmobAd, 5000);
+          } else {
+            alert('error: ' + data.error +
+                ', reason: ' + data.reason +
+                ', adNetwork:' + data.adNetwork +
+                ', adType:' + data.adType +
+                ', adEvent:' + data.adEvent); // adType: 'banner', 'interstitial', etc.
+          }
+      });
+
+      function prepareAdmobAd() {
+        AdMob.adQueued = false
+        AdMob.prepareRewardVideoAd({adId: 'ca-app-pub-7084883326948678/2720232766', autoShow: false})
+      }
+
+      $(document).on('onAdLoaded', function(e){
+          console.log('Ad Loaded.');
+          AdMob.adQueued = true
+      });
+
+      $(document).on('onAdDismiss', function(e){
+          scene.manager.completeAd()
+          console.log('Ad used, preparing new ad.');
+          prepareAdmobAd()
+      });
+      if (GAMEANALYTICS) {
+        GAObject = new analytics("d7ae38d24af9333a3b3fc8a2ff3ef55d", "f50bfcccd1091ed338726343bf833dfbced02f7e")
+      } else {
+        GAObject = false
+      }
+      
+    </script>
+</body>
+</html>
